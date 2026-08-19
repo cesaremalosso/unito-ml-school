@@ -1,0 +1,41 @@
+name: pet-mad-hands-on
+channels:
+  - metatensor
+  - conda-forge
+dependencies:
+  - python=3.12
+  # LAMMPS built with the ML-METATOMIC package (pair_style metatomic), CUDA-enabled
+  # (Ampere, compute capability 8.6 -- matches the NVIDIA A16), no-MPI build. This
+  # build also runs fine with `device cpu` on a machine with no GPU at all, so one
+  # environment works everywhere; both notebooks auto-detect a GPU at runtime
+  # (`torch.cuda.is_available()`) and pick `cuda`/`cpu` accordingly. If your GPU is
+  # a different architecture, swap the `arch_AMPERE86` tag for a matching one (see
+  # `conda search -c metatensor -c conda-forge lammps-metatomic`), or use the
+  # `cpu_..._nompi_...` build to go CPU-only everywhere.
+  - lammps-metatomic=2026.07.04.mta1=cuda129_kokkos_arch_AMPERE86_hc871837_nompi_git.1bce258_1
+  - pip
+  - pip:
+      # Pinning torch explicitly (rather than letting metatrain pull in whatever is
+      # newest) fixes two real problems seen with the unpinned default:
+      #  - the plain PyPI wheel now defaults to a CUDA 13.0 build, which silently
+      #    fails to see the GPU ("CUDA initialization: driver too old") on machines
+      #    with a still-fairly-recent driver (this affected our own dev/test GPUs);
+      #    cu126 needs a much older minimum driver and picks up the same GPU fine.
+      #  - going too far the other way (torch < ~2.8) hits a real bug in metatrain's
+      #    PET model code (a `scatter_add_` dtype mismatch), so don't downgrade
+      #    below 2.9 either. If `torch.cuda.is_available()` is still False after
+      #    installing this, the machine's NVIDIA driver itself is the next thing to
+      #    check (`nvidia-smi`) -- both notebooks fall back to CPU automatically
+      #    either way, just slower.
+      - --extra-index-url https://download.pytorch.org/whl/cu126
+      - torch==2.9.0+cu126
+      # pet-mad-xs-v1.6.0rc4.ckpt is a PET checkpoint saved in a format that only
+      # metatrain>=2026.4 knows how to read/export -- do not downgrade this.
+      - metatrain>=2026.4
+      - metatomic-ase
+      - ase
+      - chemiscope
+      - matplotlib
+      - numpy
+      - jupyterlab
+      - ipykernel
