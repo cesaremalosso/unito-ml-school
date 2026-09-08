@@ -23,12 +23,26 @@ Two independent notebooks, either of which can be run on its own:
   ~45 minutes. Adapted from Paolo Pegolo's
   [atomistic-cookbook recipe](https://atomistic-cookbook.org).
 
-Neither the model checkpoint nor the ethanol reference data is in this repository. Both live
-in shared directories on the classroom machine: `pet-mad-xs-v1.6.0.ckpt`, which the two
-notebooks share, in `/home/unito/pet-mad-models/`; `ethanol_ccsd_t.xyz` in
-`/home/unito/dataset/`; and the precomputed runs the water analysis reads, trajectories
-and thermo logs alike, in `/home/unito/trajectories/`. The notebooks make opposite points and complement each other: the ethanol notebook is about specialising a foundation model when you have
-reference data, the water notebook about using one unchanged when you have none.
+This repository holds the two notebooks and the conda environment, nothing else. Everything
+they read lives in shared directories on the classroom machine, so that fifty people are not
+each carrying their own copy:
+
+| Directory | Contents | Notebook variable |
+|---|---|---|
+| `/home/unito/pet-mad-models/` | `pet-mad-xs-v1.6.0.ckpt`, shared by both notebooks | `CKPT_PATH` |
+| `/home/unito/dataset/` | `ethanol_ccsd_t.xyz`, the CCSD(T) reference data | `DATA_PATH` |
+| `/home/unito/trajectories/` | precomputed trajectories and their thermo logs | `TRAJ_DIR` |
+| `/home/unito/init/` | the LAMMPS input files the water notebook runs | `INIT_DIR` |
+| `/home/unito/data/` | the starting structures those inputs read | (inside the `.lmp` files) |
+| `/home/unito/pics/` | figures shown in the notebook text | `PICS_DIR` |
+
+One thing to know if you ever move these: LAMMPS resolves `read_data` against its *working*
+directory, not the location of the input file, so the `read_data` lines inside
+`/home/unito/init/*.lmp` have to name `/home/unito/data/...` by absolute path.
+
+The notebooks make opposite points and complement each other: the ethanol notebook is about
+specialising a foundation model when you have reference data, the water notebook about using
+one unchanged when you have none.
 
 An earlier aspirin version of the fine-tuning notebook is kept in
 `deprecated/aspirin-finetune/` for reference. It is not part of the session and is not
@@ -44,10 +58,10 @@ conda activate pet-mad-hands-on
 jupyter lab
 ```
 
-That's it — no other download or build step on the classroom machine, where the checkpoint
-and the dataset are already in place. Running anywhere else, put your own copies somewhere
-and change the `CKPT_PATH` (both notebooks), `DATA_PATH` (ethanol) and `TRAJ_DIR` (water)
-lines near the top of each notebook to point at them. `environment.yml` pins everything needed:
+That's it — no other download or build step on the classroom machine, where everything in the
+table above is already in place. Running anywhere else, put your own copies somewhere and
+change the path variables near the top of each notebook to match. `environment.yml` pins
+everything needed:
 `metatrain` (to load/export the checkpoint and to run the live fine-tuning step),
 `metatomic-ase` + `ase` (to run the ethanol MD), and a prebuilt `lammps-metatomic` conda
 package (to run the water/NaCl MD) — no LAMMPS compilation required.
