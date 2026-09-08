@@ -1,11 +1,15 @@
 # ---------------------------------------------------------------------------
-# Generated model files. Both notebooks re-create these from the shipped
-# checkpoint in a few seconds, so there is no reason to track them.
-# The checkpoint itself, pet-mad-xs-v1.6.0.ckpt (18 MB), is tracked: it ships
-# without the LLPR uncertainty wrapper, so the notebooks export it directly and
-# no second copy is ever written to disk.
+# Generated model files. Both notebooks re-create these in a few seconds from the
+# PET-MAD-XS checkpoint, so there is no reason to track them.
+#
+# The checkpoint itself is not in this repository at all: it lives at
+# /home/unito/pet-mad-models/pet-mad-xs-v1.6.0.ckpt on the classroom machine, and
+# carries no LLPR uncertainty wrapper, so the notebooks export it directly and no
+# second copy is ever written to disk. Keep it that way -- checkpoints are large
+# binaries and GitHub rejects anything above 100 MB.
 # ---------------------------------------------------------------------------
 *.pt
+*.ckpt
 
 # ---------------------------------------------------------------------------
 # Working backups (e.g. water-md.backup-20260819-110916/)

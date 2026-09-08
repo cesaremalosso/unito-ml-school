@@ -22,10 +22,11 @@ Two independent notebooks, either of which can be run on its own:
   analysis uses longer precomputed trajectories; ~45 minutes. Adapted from Paolo Pegolo's
   [atomistic-cookbook recipe](https://atomistic-cookbook.org).
 
-Both notebooks share the same model checkpoint, `pet-mad-xs-v1.6.0.ckpt`, shipped at the
-repository root. They make opposite points and complement each other: the ethanol notebook
-is about specialising a foundation model when you have reference data, the water notebook
-about using one unchanged when you have none.
+Both notebooks share the same model checkpoint, `pet-mad-xs-v1.6.0.ckpt`. It is **not** in
+this repository — it lives on the classroom machine, at
+`/home/unito/pet-mad-models/`. The notebooks make opposite points and complement each
+other: the ethanol notebook is about specialising a foundation model when you have
+reference data, the water notebook about using one unchanged when you have none.
 
 An earlier aspirin version of the fine-tuning notebook is kept in
 `deprecated/aspirin-finetune/` for reference. It is not part of the session and is not
@@ -41,7 +42,10 @@ conda activate pet-mad-hands-on
 jupyter lab
 ```
 
-That's it — no other download or build step. `environment.yml` pins everything needed:
+That's it — no other download or build step on the classroom machine, where the checkpoint
+is already in place. Running anywhere else, put your own copy somewhere and change the
+`CKPT_PATH` line near the top of each notebook to point at it. `environment.yml` pins
+everything needed:
 `metatrain` (to load/export the checkpoint and to run the live fine-tuning step),
 `metatomic-ase` + `ase` (to run the ethanol MD), and a prebuilt `lammps-metatomic` conda
 package (to run the water/NaCl MD) — no LAMMPS compilation required.
