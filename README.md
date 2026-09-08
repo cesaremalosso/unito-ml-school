@@ -19,13 +19,15 @@ Two independent notebooks, either of which can be run on its own:
   functions, coordination numbers), then superionic water at 3000 K and ~130 GPa, where the
   mean-squared displacement shows oxygen frozen on its lattice while hydrogen diffuses like a
   liquid — four orders of magnitude apart in the same box. Short runs happen live, the
-  analysis uses longer precomputed trajectories; ~45 minutes. Adapted from Paolo Pegolo's
+  analysis uses longer precomputed trajectories from `/home/unito/trajectories/`;
+  ~45 minutes. Adapted from Paolo Pegolo's
   [atomistic-cookbook recipe](https://atomistic-cookbook.org).
 
-Both notebooks share the same model checkpoint, `pet-mad-xs-v1.6.0.ckpt`. It is **not** in
-this repository — it lives on the classroom machine, at
-`/home/unito/pet-mad-models/`. The notebooks make opposite points and complement each
-other: the ethanol notebook is about specialising a foundation model when you have
+Neither the model checkpoint nor the ethanol reference data is in this repository. Both live
+in shared directories on the classroom machine: `pet-mad-xs-v1.6.0.ckpt`, which the two
+notebooks share, in `/home/unito/pet-mad-models/`; `ethanol_ccsd_t.xyz` in
+`/home/unito/dataset/`; and the four long `.lammpstrj` trajectories the water analysis
+reads in `/home/unito/trajectories/`. The notebooks make opposite points and complement each other: the ethanol notebook is about specialising a foundation model when you have
 reference data, the water notebook about using one unchanged when you have none.
 
 An earlier aspirin version of the fine-tuning notebook is kept in
@@ -43,9 +45,9 @@ jupyter lab
 ```
 
 That's it — no other download or build step on the classroom machine, where the checkpoint
-is already in place. Running anywhere else, put your own copy somewhere and change the
-`CKPT_PATH` line near the top of each notebook to point at it. `environment.yml` pins
-everything needed:
+and the dataset are already in place. Running anywhere else, put your own copies somewhere
+and change the `CKPT_PATH` (both notebooks), `DATA_PATH` (ethanol) and `TRAJ_DIR` (water)
+lines near the top of each notebook to point at them. `environment.yml` pins everything needed:
 `metatrain` (to load/export the checkpoint and to run the live fine-tuning step),
 `metatomic-ase` + `ase` (to run the ethanol MD), and a prebuilt `lammps-metatomic` conda
 package (to run the water/NaCl MD) — no LAMMPS compilation required.
