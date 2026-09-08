@@ -26,8 +26,8 @@ Two independent notebooks, either of which can be run on its own:
 Neither the model checkpoint nor the ethanol reference data is in this repository. Both live
 in shared directories on the classroom machine: `pet-mad-xs-v1.6.0.ckpt`, which the two
 notebooks share, in `/home/unito/pet-mad-models/`; `ethanol_ccsd_t.xyz` in
-`/home/unito/dataset/`; and the four long `.lammpstrj` trajectories the water analysis
-reads in `/home/unito/trajectories/`. The notebooks make opposite points and complement each other: the ethanol notebook is about specialising a foundation model when you have
+`/home/unito/dataset/`; and the precomputed runs the water analysis reads, trajectories
+and thermo logs alike, in `/home/unito/trajectories/`. The notebooks make opposite points and complement each other: the ethanol notebook is about specialising a foundation model when you have
 reference data, the water notebook about using one unchanged when you have none.
 
 An earlier aspirin version of the fine-tuning notebook is kept in
