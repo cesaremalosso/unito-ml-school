@@ -29,7 +29,7 @@ dependencies:
       #    either way, just slower.
       - --extra-index-url https://download.pytorch.org/whl/cu126
       - torch==2.9.0+cu126
-      # pet-mad-xs-v1.6.0rc4.ckpt is a PET checkpoint saved in a format that only
+      # pet-mad-xs-v1.6.0.ckpt is a PET checkpoint saved in a format that only
       # metatrain>=2026.4 knows how to read/export -- do not downgrade this.
       - metatrain>=2026.4
       - metatomic-ase

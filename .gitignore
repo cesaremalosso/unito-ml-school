@@ -1,19 +1,11 @@
 # ---------------------------------------------------------------------------
 # Generated model files. Both notebooks re-create these from the shipped
-# checkpoints in a few seconds, so there is no reason to track them.
+# checkpoint in a few seconds, so there is no reason to track them.
+# The checkpoint itself, pet-mad-xs-v1.6.0.ckpt (18 MB), is tracked: it ships
+# without the LLPR uncertainty wrapper, so the notebooks export it directly and
+# no second copy is ever written to disk.
 # ---------------------------------------------------------------------------
 *.pt
-*-plain.ckpt
-
-# ---------------------------------------------------------------------------
-# Large model checkpoints.
-# pet-mad-s-v1.6.0rc4.ckpt is 105 MB, above GitHub's 100 MB per-file hard limit:
-# it cannot be pushed to github.com without Git LFS. It is only needed for the
-# optional section 10 exercise of the ethanol notebook, so distribute it
-# separately (shared drive, LFS, or a download link in the README).
-# pet-mad-xs-v1.6.0rc4.ckpt (19 MB) is small enough to ship and is tracked.
-# ---------------------------------------------------------------------------
-pet-mad-s-v1.6.0rc4.ckpt
 
 # ---------------------------------------------------------------------------
 # Working backups (e.g. water-md.backup-20260819-110916/)

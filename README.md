@@ -22,7 +22,7 @@ Two independent notebooks, either of which can be run on its own:
   analysis uses longer precomputed trajectories; ~45 minutes. Adapted from Paolo Pegolo's
   [atomistic-cookbook recipe](https://atomistic-cookbook.org).
 
-Both notebooks share the same model checkpoint, `pet-mad-xs-v1.6.0rc4.ckpt`, shipped at the
+Both notebooks share the same model checkpoint, `pet-mad-xs-v1.6.0.ckpt`, shipped at the
 repository root. They make opposite points and complement each other: the ethanol notebook
 is about specialising a foundation model when you have reference data, the water notebook
 about using one unchanged when you have none.
